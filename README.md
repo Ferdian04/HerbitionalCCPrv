@@ -25,13 +25,13 @@ URL: http://herbitional-api.com/api/{version}/{Group}/{endpoint}
   - `POST`
 - Request Body:
   - `fullname` : string, `NOT NULL`,
-  - `email` : string, `NOT NULL`
-  - `password`: string, `NOT NULL`
+  - `user_email_address` : string, `NOT NULL`
+  - `user_password`: string, `NOT NULL`
   ```
   {
-    name: "Big bob",
-    email: "email@email.com",
-    password: "examplepass123"
+    fullname: "Big bob",
+    user_email_address: "email@email.com",
+    user_password: "examplepass123"
   }
   ```
 - Response:
@@ -52,13 +52,13 @@ URL: http://herbitional-api.com/api/{version}/{Group}/{endpoint}
 - Method:
   - `POST`
 - Request Body:
-  - `email` : string, email need to be valid
-  - `password`: string, email and password need to be match
+  - `user_email_address` : string, email need to be valid
+  - `user_password`: string, email and password need to be match
 
 ```
 {
-    email : "example@email.com",
-    password: "exmaplepassword123"
+    user_email_address : "example@email.com",
+    user_password: "exmaplepassword123"
 }
 ```
 
@@ -68,7 +68,7 @@ URL: http://herbitional-api.com/api/{version}/{Group}/{endpoint}
 {
 status: true,
 code: 200,
-message: "LOGIN_SUCCESS",
+message: "logged in successfully",
 Token
 }
 ```
