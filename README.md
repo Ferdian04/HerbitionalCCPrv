@@ -7,7 +7,3 @@ This is Hai
 - Hai
 
 # Herbitional ML Planning & Documentation
-
-URL: http://herbitional-api.com/api/{version}/{Group}/{endpoint}
-
----
