@@ -86,6 +86,15 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
+  const generateAccesToken = (payload) => {
+    return jwt.sign(
+      {
+        id: payload,
+      },
+      process.env.JWT_SECRET
+    );
+  };
+
   try {
     console.log("Login .....");
     let { user_email_address, user_password } = req.body;
@@ -112,8 +121,7 @@ exports.signin = async (req, res) => {
   `;
 
     connection.query(db, function (err, data) {
-      if (data.length > 0) {
-      } else {
+      if (data.length < 0) {
         return res.status(401).json({
           status: "Failed",
           requestAt: new Date().toISOString(),
@@ -129,6 +137,8 @@ exports.signin = async (req, res) => {
           message: "Wrong Password",
         });
       }
+
+      console.log(data[0].user_id);
 
       const token = jwt.sign({ user_email_address }, process.env.JWT_SECRET, { expiresIn: "1h" });
       return res.status(201).json({
@@ -149,19 +159,6 @@ exports.signin = async (req, res) => {
 };
 
 exports.protected = (req, res) => {
-  const token = req.headers["x-access-token"];
-
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ error: "Invalid token" });
-    }
-    req.user = decoded;
-  });
-
   return res.status(200).json({
     message: "Rute yang dilindungi. Selamat datang, " + req.user.user_email_address,
   });

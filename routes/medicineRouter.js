@@ -2,8 +2,9 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 const medicineController = require("../controllers/medicineController");
+const jwtAuth = require("../middleware/jwtAuth");
 
-//router.get("/json", passport.authenticate("jwt", { session: false }), medicineController.getMed);
-router.post("/med"), medicineController.getMed;
+router.get("/json", jwtAuth(), medicineController.getMed);
+router.get("/home", jwtAuth(), medicineController.home);
 
 module.exports = router;

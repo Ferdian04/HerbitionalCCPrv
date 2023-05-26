@@ -4,6 +4,7 @@ const connection = require("../mysql/connect");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authController = require("../controllers/authController");
+const jwtAuth = require("../middleware/jwtAuth");
 
 router.use((req, res, next) => {
   console.log("Time: ", Date.now());
@@ -12,6 +13,6 @@ router.use((req, res, next) => {
 
 router.post("/register", authController.signup);
 router.post("/login", authController.signin);
-router.get("/protected", authController.protected);
+router.get("/protected", jwtAuth(), authController.protected);
 
 module.exports = router;

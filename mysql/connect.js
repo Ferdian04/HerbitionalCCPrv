@@ -16,3 +16,16 @@ connection.connect(function (error) {
 });
 
 module.exports = connection;
+
+// const mysql = require("mysql");
+
+// const dbConfig = {
+//   host: "localhost",
+//   user: "root",
+//   password: "password",
+//   database: "mydatabase",
+// };
+
+// const connection = mysql.createPool(dbConfig);
+
+// module.exports = connection;
