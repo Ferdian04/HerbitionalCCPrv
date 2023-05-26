@@ -1,78 +1,9 @@
-# Herbitional API
-
-This is API Service for Capstone Project on Bangkit 2022. For Api Documentation you can visit this link:
-link
-
-## Built with
-
-- Express 4.18.2
-
-# Herbitional API Planning & Documentation
-
-URL: http://herbitional-api.com/api/{version}/{Group}/{endpoint}
-
----
-
-## Group: Auth
-
-### [1] - Register
-
-- URL:
-  - http://url-api.com/api/v1/auth/register
-- Endpoint:
-  - `/register`
-- Method:
-  - `POST`
-- Request Body:
-  - `fullname` : string, `NOT NULL`,
-  - `user_email_address` : string, `NOT NULL`
-  - `user_password`: string, `NOT NULL`
-  ```
-  {
-    fullname: "Big bob",
-    user_email_address: "email@email.com",
-    user_password: "examplepass123"
-  }
-  ```
-- Response:
-  ```
-  status: "Success",
-  code: 201,
-  ```
-- Error Response:
-  - `400` : EMAIL_REQUIRED, PASSWORD_REQUIRED,
-  - `409` : EMAIL_ALREADY_EXIST,
-
-### [2] - Login
-
-- URL:
-  - http://wwww.url-api.com/api/v1/auth/login
-- Endpoint:
-  - `/login`
-- Method:
-  - `POST`
-- Request Body:
-  - `user_email_address` : string, email need to be valid
-  - `user_password`: string, email and password need to be match
-
-```
-{
-    user_email_address : "example@email.com",
-    user_password: "exmaplepassword123"
-}
-```
-
-- Response:
-
-```
-{
-status: true,
-code: 200,
-message: "logged in successfully",
-Token
-}
-```
-
-- Err Response:
-  - `400` : EMAIL_REQUIRED, PASS_REQUIRED
-  - `401` : USER_NOT_FOUND, EMAIL_NOT_REGISTERED, PASSWORD_INVALID
+# Herbitional
+Herbitional Capstone by C23-PS022 group
+Member consist of: 
+1. Roihaan Ramadhani ( M151DSX1485) - Machine Learning - Universitas Brawijaya 
+2. Achmad Fahri Alhamdi ( M151DSX0089)- Machine Learning - Universitas Brawijaya 
+3. Yovi Revikasari (M368DSY2349) - Machine Learning- Universitas Udayana 
+4. Yahya Pratama (C125DKX4558) - Cloud Computing - UIN Syarif Hidayatullah Jakarta 
+5. Ferdian Hafiz (C125DKX4758) - Cloud Computing- UIN Syarif Hidayatullah Jakarta 
+6. Dimas Restu Aetna (A125DKX4598) - Mobile Development - UIN Syarif Hidayatullah Jakarta
