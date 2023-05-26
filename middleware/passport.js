@@ -1,37 +1,31 @@
-const passport = require("passport");
-const passportJWT = require("passport-jwt");
-const JwtStrategy = passportJWT.Strategy;
-const ExtractJwt = passportJWT.ExtractJwt;
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+dotenv.config();
 
-const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET,
+const jwtAuth = () => {
+  return async (req, res, next) => {
+    try {
+      let authorization = req.headers.authorization;
+      if (!authorization) {
+        throw { code: 401, message: "UNAUTHORIZED" };
+      }
+      const token = authorization.split(" ")[1];
+      const decode = jwt.verify(token, process.env.JWT_SECRET);
+      req.jwt = decode;
+      next();
+    } catch (err) {
+      const errMessage = ["invalid signature", "jwt malformed", "jwt must be provided", "invalid token"];
+      if (err.message === "jwt expired") {
+        err.message = "TOKEN_EXPIRED";
+      } else if (errMessage.includes(err.message)) {
+        err.message = "INVALID_TOKEN";
+      }
+      return res.status(500).json({
+        status: "false",
+        message: "Server Error",
+      });
+    }
+  };
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.error("Error acquiring database connection: ", err);
-      return done(err, false);
-    }
-
-    const query = "SELECT * FROM users WHERE id = ?";
-    connection.query(query, [payload.userId], (error, results) => {
-      connection.release();
-
-      if (error) {
-        console.error("Error executing query: ", error);
-        return done(error, false);
-      }
-
-      if (results.length > 0) {
-        const user = results[0];
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    });
-  });
-});
-
-passport.use(jwtStrategy);
+module.exports = jwtAuth;

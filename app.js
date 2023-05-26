@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 
 console.log(process.env.JWT_SECRET);
 
-const server = app.listen(8081, function () {
+const server = app.listen(8080, function () {
   const port = server.address().port;
 
   console.log("Example app listening at http://localhost:%s", port);
