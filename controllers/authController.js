@@ -8,8 +8,6 @@ exports.signup = async (req, res) => {
     console.log("Register .....");
     let { fullname, user_email_address, user_password } = req.body;
     let createdAt = new Date().toISOString();
-    const salt = bcrypt.genSaltSync(8);
-    user_password = bcrypt.hashSync(user_password, salt);
 
     if (!fullname) {
       return res.status(400).json({
@@ -65,6 +63,9 @@ exports.signup = async (req, res) => {
         });
       }
 
+      const salt = bcrypt.genSaltSync(8);
+      user_password = bcrypt.hashSync(user_password, salt);
+
       let ins_db = `INSERT INTO user_login (fullname, user_email, user_password, createdAt) VALUES ('${fullname}','${user_email_address}', '${user_password}', '${createdAt}');`;
       connection.query(ins_db, function (err, data) {
         return res.status(201).json({
@@ -86,15 +87,6 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
-  const generateAccesToken = (payload) => {
-    return jwt.sign(
-      {
-        id: payload,
-      },
-      process.env.JWT_SECRET
-    );
-  };
-
   try {
     console.log("Login .....");
     let { user_email_address, user_password } = req.body;
@@ -121,7 +113,8 @@ exports.signin = async (req, res) => {
   `;
 
     connection.query(db, function (err, data) {
-      if (data.length < 0) {
+      console.log(data.length);
+      if (data.length <= 0) {
         return res.status(401).json({
           status: "Failed",
           requestAt: new Date().toISOString(),
