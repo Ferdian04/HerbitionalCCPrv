@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoute");
 const medicineRouter = require("./routes/medicineRouter");
 const app = express();
 const bodyParser = require("body-parser");
+const connection = require("../mysql/connect");
 
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
@@ -25,3 +26,11 @@ const server = app.listen(8080, function () {
 
   console.log("Example app listening at http://localhost:%s", port);
 });
+
+
+db = `
+  SELECT * FROM user_login`;
+    connection.query(db, function (err, data) {
+      console.log(data.length);
+}
+};
