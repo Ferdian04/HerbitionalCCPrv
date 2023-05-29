@@ -15,7 +15,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/medicine", medicineRouter);
 
 app.get("/", function (req, res) {
-  res.send("Hello World");
+  res.send(`Hello World ${process.env.JWT_SECRET}`);
 });
 
 console.log(process.env.JWT_SECRET);
